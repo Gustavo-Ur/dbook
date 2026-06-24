@@ -11,6 +11,31 @@ assistente Aurora), este projeto é **autónomo e neutro de propósito**: não p
 a nenhuma app nem a nenhum fornecedor de modelos. É um bem comum com dono do
 *formato* e da *ferramenta*, não dos livros dos outros.
 
+## ✨ Vê funcionar
+
+Pergunta a *Os Lusíadas* (Camões, 1572) em **linguagem natural** — e recebe a
+estrofe exata, com a citação. O livro já vem descodificado; isto só *recupera*.
+
+```text
+📖 Os Lusíadas — 1102 estrofes descodificadas, prontas.
+
+❓ Quem comanda a viagem dos portugueses à Índia?
+   → Canto II, est. 70
+     «E como o Gama muito desejasse Piloto para a Índia que buscava…»
+
+❓ Quem é o velho que critica a partida dos navegadores?
+   → Canto IV, est. 94
+     «Mas um velho d'aspeito venerando, Que ficava nas praias, entre a gente…»
+```
+
+Um poema de **450 anos**, a responder a perguntas de hoje, com a fonte exata.
+Corre tu mesmo (precisa do [Ollama](https://ollama.com)):
+
+```sh
+python -m dbook embed biblioteca/os_lusiadas.dbook --model bge-m3   # descodificar uma vez
+python examples/quickstart.py                                       # ...consultar para sempre
+```
+
 ## Estrutura
 
 ```
