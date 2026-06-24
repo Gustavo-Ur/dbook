@@ -1,0 +1,23 @@
+{
+  "format": "dbook/1.0",
+  "title": "Bíblia Livre (Português)",
+  "author": null,
+  "language": "pt",
+  "source": "biblia_PorBLivre.json",
+  "source_sha256": null,
+  "pages": 66,
+  "chunks": 4156,
+  "structure_sha256": "205a71c168523d8884aaf18e7c3488516bec40165991946ed1e3113d1464f08f",
+  "chunking": {
+    "method": "passages",
+    "target_words": 180,
+    "sections": "Livro Cap:Versículo"
+  },
+  "cleaned": true,
+  "vectors_available": [
+    "bge-m3@unknown/1024"
+  ],
+  "license": null,
+  "created": "2026-06-24",
+  "tool": "dbook/decoder"
+}

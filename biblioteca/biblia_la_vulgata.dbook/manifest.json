@@ -1,0 +1,23 @@
+{
+  "format": "dbook/1.0",
+  "title": "Vulgata Clementina (Latim)",
+  "author": null,
+  "language": "la",
+  "source": "biblia_VulgClementine.json",
+  "source_sha256": null,
+  "pages": 78,
+  "chunks": 4012,
+  "structure_sha256": "5f931a928c570a64177d6bc7529b2462559edee3c142c01551503e9e9dda3d8c",
+  "chunking": {
+    "method": "passages",
+    "target_words": 180,
+    "sections": "Livro Cap:Versículo"
+  },
+  "cleaned": true,
+  "vectors_available": [
+    "bge-m3@unknown/1024"
+  ],
+  "license": null,
+  "created": "2026-06-24",
+  "tool": "dbook/decoder"
+}

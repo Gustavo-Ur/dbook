@@ -1,0 +1,11 @@
+dbook — descodificador de referência do formato "Livro Descodificado" (.dbook)
+Copyright 2026 Gustavo de Urzêda Abreu
+
+Este produto inclui software desenvolvido por Gustavo de Urzêda Abreu,
+originado na assistente Aurora (conversa "PA_1", junho de 2026).
+
+Licenciado sob a Apache License, Version 2.0. Ver o ficheiro LICENSE.
+
+O formato .dbook, a sua especificação (docs/dbook_format.md), a visão
+(docs/manifesto.md) e a carta fundadora (docs/constituicao.md) são da
+autoria de Gustavo de Urzêda Abreu. Qualquer uso deve manter a atribuição.

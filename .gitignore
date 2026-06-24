@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Vetores .dbook — a camada PERECÍVEL (por-modelo, regenerável). O bem comum é o
+# TEXTO durável (structure.jsonl + manifest.json), que FICA no repositório.
+# Os vetores distribuem-se à parte (releases), não incham o repo.
+*.npz
+*.dbook.zip
+
+# Conteúdo PRIVADO / com direitos de autor — NUNCA entra no comum público.
+# (A constituição, Título III: "comum legítimo — só conteúdo livre".)
+biblioteca/_privado/
+**/_privado/
+
+# Sistema
+.DS_Store
+Thumbs.db

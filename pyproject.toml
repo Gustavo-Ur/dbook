@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dbook"
+version = "1.0.0"
+description = "Livro Descodificado — formato universal e ferramenta de referência para descodificar livros uma vez e partilhar para sempre"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Gustavo de Urzêda Abreu", email = "Gustavo-Ur@users.noreply.github.com" }]
+keywords = ["dbook", "rag", "embeddings", "ai", "knowledge-commons", "decoded-book"]
+dependencies = [
+    "numpy>=1.21",
+    "requests>=2.25",
+    "pypdf>=3.0",
+]
+
+[project.optional-dependencies]
+# Extração de PDFs só-imagem (scans) por OCR offline.
+ocr = ["pymupdf>=1.23", "rapidocr-onnxruntime>=1.3"]
+
+[project.scripts]
+dbook = "dbook.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Gustavo-Ur/dbook"
+
+[tool.setuptools]
+packages = ["dbook"]

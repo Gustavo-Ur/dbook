@@ -1,0 +1,24 @@
+{
+  "format": "dbook/1.0",
+  "title": "Os Lusíadas",
+  "author": "Luís de Camões",
+  "language": "pt",
+  "source": "os_lusiadas_obra.txt",
+  "source_sha256": "2792eddbd23f80ffe0e3d840d5874740f816bced32122cb69f157bf7199ea4c4",
+  "pages": 10,
+  "chunks": 1102,
+  "structure_sha256": "23098f9727bc77c936fd4091ff22b7826ee39b90f6dd05d1c5b73a50e8bec827",
+  "chunking": {
+    "method": "stanza",
+    "unit": "estrofe",
+    "sections": "Canto+estrofe"
+  },
+  "cleaned": true,
+  "vectors_available": [
+    "nomic-embed-text@unknown/768",
+    "bge-m3@unknown/1024"
+  ],
+  "license": null,
+  "created": "2026-06-24",
+  "tool": "dbook/decoder"
+}

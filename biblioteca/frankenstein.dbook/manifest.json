@@ -1,0 +1,23 @@
+{
+  "format": "dbook/1.0",
+  "title": "Frankenstein; or, The Modern Prometheus",
+  "author": "Mary Wollstonecraft Shelley",
+  "language": "en",
+  "source": "frankenstein_obra.txt",
+  "source_sha256": "5e07c3d9c8f1b6b2e88b6d6b5dd6ea13fd410c22e749e71111effcdf11ed2b04",
+  "pages": 28,
+  "chunks": 428,
+  "structure_sha256": "1208113861bab6c0ac0a7fe664b953b38f238395c3e760984a04a06d4b71ddbf",
+  "chunking": {
+    "method": "sentences",
+    "target_words": 250,
+    "sections": "Letter/Chapter"
+  },
+  "cleaned": true,
+  "vectors_available": [
+    "bge-m3@unknown/1024"
+  ],
+  "license": null,
+  "created": "2026-06-24",
+  "tool": "dbook/decoder"
+}

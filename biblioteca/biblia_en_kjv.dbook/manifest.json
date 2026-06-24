@@ -1,0 +1,23 @@
+{
+  "format": "dbook/1.0",
+  "title": "King James Version (1769)",
+  "author": null,
+  "language": "en",
+  "source": "biblia_KJV.json",
+  "source_sha256": null,
+  "pages": 66,
+  "chunks": 4567,
+  "structure_sha256": "e01c0c55cfc67a3402d4ce39ca37f6a008f7ed2050a77650cfad3b3875efc034",
+  "chunking": {
+    "method": "passages",
+    "target_words": 180,
+    "sections": "Livro Cap:Versículo"
+  },
+  "cleaned": true,
+  "vectors_available": [
+    "bge-m3@unknown/1024"
+  ],
+  "license": null,
+  "created": "2026-06-24",
+  "tool": "dbook/decoder"
+}
