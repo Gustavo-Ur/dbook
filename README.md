@@ -59,9 +59,18 @@ if res:
     textos, vetores, metas = res           # mete-os num FAISS sem recalcular nada
 ```
 
-Cada `Document` traz o texto + metadados ricos (título, autor, página, secção,
-hash). LlamaIndex e outros: o mesmo padrão — contribuições bem-vindas
-(ver `CONTRIBUTING.md`).
+**LlamaIndex** (`pip install "dbook[llama-index]"`):
+
+```python
+from dbook.integrations.llama_index import DbookReader
+
+docs = DbookReader().load_data("livro.dbook")   # → List[Document], p/ o teu VectorStoreIndex
+```
+
+Cada documento traz o texto + metadados ricos (título, autor, página, secção,
+hash), e ambos os loaders têm `precomputed_embeddings(model)` para a regra de
+uso (reutilizar vetores prontos, 0 re-embed). Outras frameworks: o mesmo
+padrão — contribuições bem-vindas (ver `CONTRIBUTING.md`).
 
 ## Licença e autoria
 
