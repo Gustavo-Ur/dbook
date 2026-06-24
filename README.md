@@ -42,6 +42,27 @@ Um `.dbook` é uma pasta: `manifest.json` (identidade+integridade) + `structure.
 quem tem os vetores do seu modelo usa-os (custo zero); quem não tem, embebe a
 estrutura barata — porque o trabalho caro (OCR, limpeza, partição) já vem feito.
 
+## Integrações
+
+Faz qualquer app de RAG ler o `.dbook` — sem mudar o teu fluxo.
+
+**LangChain** (`pip install "dbook[langchain]"`):
+
+```python
+from dbook.integrations.langchain import DbookLoader
+
+docs = DbookLoader("livro.dbook").load()   # → List[Document], pronto p/ o teu vectorstore
+
+# Bónus — a regra de uso: reutilizar os vetores já prontos, 0 re-embed
+res = DbookLoader("livro.dbook").precomputed_embeddings("nomic-embed-text")
+if res:
+    textos, vetores, metas = res           # mete-os num FAISS sem recalcular nada
+```
+
+Cada `Document` traz o texto + metadados ricos (título, autor, página, secção,
+hash). LlamaIndex e outros: o mesmo padrão — contribuições bem-vindas
+(ver `CONTRIBUTING.md`).
+
 ## Licença e autoria
 
 - **Código** (`dbook/`): Apache License 2.0 — ver `dbook/LICENSE`.

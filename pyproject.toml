@@ -20,6 +20,8 @@ dependencies = [
 [project.optional-dependencies]
 # Extração de PDFs só-imagem (scans) por OCR offline.
 ocr = ["pymupdf>=1.23", "rapidocr-onnxruntime>=1.3"]
+# Loader .dbook para a LangChain (qualquer app de RAG passa a ler o formato).
+langchain = ["langchain-core>=0.2"]
 
 [project.scripts]
 dbook = "dbook.cli:main"
@@ -28,4 +30,4 @@ dbook = "dbook.cli:main"
 Homepage = "https://github.com/Gustavo-Ur/dbook"
 
 [tool.setuptools]
-packages = ["dbook"]
+packages = ["dbook", "dbook.integrations"]
