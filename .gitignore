@@ -18,6 +18,9 @@ venv/
 biblioteca/_privado/
 **/_privado/
 
+# Pasta de entrada do utilizador (ficheiros por descodificar) — pessoal, fora do repo.
+entrada/
+
 # Sistema
 .DS_Store
 Thumbs.db

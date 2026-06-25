@@ -3,6 +3,7 @@
 
 """CLI do descodificador .dbook.
 
+    python -m dbook sync                       # descodifica a pasta entrada/ → biblioteca/
     python -m dbook encode "livro.pdf" [--ocr] [--embed] [--model nomic-embed-text]
     python -m dbook embed  "livro.dbook" --model nomic-embed-text
     python -m dbook info   "livro.dbook"
@@ -10,6 +11,7 @@
 """
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -106,6 +108,101 @@ def cmd_verify(args):
     return 1
 
 
+SYNC_EXTS = {".pdf", ".txt", ".md"}
+
+
+def _safe_stem(nome):
+    return re.sub(r"[^\w.+-]", "_", nome).strip("_") or "livro"
+
+
+def cmd_sync(args):
+    """Descodifica tudo o que está na pasta de entrada para a biblioteca.
+
+    Largas ficheiros em `entrada/`, corres `dbook sync`, e os `.dbook` aparecem
+    em `biblioteca/`. Salta o que já está feito (compara o hash da fonte): só
+    toca no que é novo ou mudou.
+    """
+    inbox = Path(args.inbox)
+    library = Path(args.library)
+
+    if not inbox.exists():
+        inbox.mkdir(parents=True, exist_ok=True)
+        print(f"criei a pasta de entrada: {inbox}/")
+        print("→ larga lá os teus ficheiros (.pdf .txt .md) e corre 'dbook sync' outra vez.")
+        return 0
+    library.mkdir(parents=True, exist_ok=True)
+
+    todos = [p for p in sorted(inbox.rglob("*")) if p.is_file()]
+    ficheiros = [p for p in todos if p.suffix.lower() in SYNC_EXTS]
+    outros = [p for p in todos if p.suffix.lower() not in SYNC_EXTS]
+
+    if not todos:
+        print(f"a entrada ({inbox}/) está vazia — larga lá ficheiros e corre outra vez.")
+        return 0
+
+    novos = atualizados = saltados = falta_ocr = erros = 0
+    for f in ficheiros:
+        out = library / (_safe_stem(f.stem) + ".dbook")
+        sha = fmt.sha256_file(f)
+
+        if (out / fmt.MANIFEST).exists():
+            try:
+                if fmt.read_manifest(out).get("source_sha256") == sha:
+                    saltados += 1
+                    continue
+            except Exception:
+                pass
+            estado = "~"  # mudou
+        else:
+            estado = "+"  # novo
+
+        try:
+            units, npags = book_to_units(f, clean=not args.no_clean, ocr=args.ocr)
+        except ValueError as erro:
+            if "imagem" in str(erro).lower() or "ocr" in str(erro).lower():
+                print(f"  ⚠ {f.name}: PDF só-imagem — corre com --ocr")
+                falta_ocr += 1
+            else:
+                print(f"  ✗ {f.name}: {erro}")
+                erros += 1
+            continue
+        except Exception as erro:
+            print(f"  ✗ {f.name}: {erro}")
+            erros += 1
+            continue
+
+        if not units:
+            print(f"  ⚠ {f.name}: sem texto extraível")
+            erros += 1
+            continue
+
+        fmt.write_dbook(
+            out, units, source=str(f), language=args.language,
+            npages=npags, cleaned=not args.no_clean,
+            chunking={"method": "sentences", "target_words": CHUNK_WORDS,
+                      "overlap_words": OVERLAP_WORDS},
+        )
+        if args.embed:
+            _do_embed(out, args)
+        print(f"  {estado} {f.name} → {out.name}  ({len(units)} chunks)")
+        if estado == "+":
+            novos += 1
+        else:
+            atualizados += 1
+
+    print(f"\nbiblioteca: {library}/")
+    resumo = f"  novos {novos} · atualizados {atualizados} · já feitos {saltados}"
+    if falta_ocr:
+        resumo += f" · precisam de --ocr {falta_ocr}"
+    if erros:
+        resumo += f" · erros {erros}"
+    print(resumo)
+    if outros:
+        exts = ", ".join(sorted({p.suffix.lower() or "(sem ext)" for p in outros}))
+        print(f"  ignorados (tipo ainda não suportado: {exts}): {len(outros)} ficheiro(s)")
+    return 0
+
+
 def _zip(dbook_dir):
     import shutil
     dbook_dir = Path(dbook_dir)
@@ -158,6 +255,16 @@ def main(argv=None):
     v = sub.add_parser("verify", help="conferir integridade")
     v.add_argument("dbook")
     v.set_defaults(func=cmd_verify)
+
+    sy = sub.add_parser("sync", help="descodifica a pasta de entrada para a biblioteca")
+    sy.add_argument("--inbox", default="entrada", help="pasta onde largas os ficheiros")
+    sy.add_argument("--library", default="biblioteca", help="pasta onde nascem os .dbook")
+    sy.add_argument("--language")
+    sy.add_argument("--no-clean", action="store_true", help="não remover boilerplate")
+    sy.add_argument("--ocr", action="store_true", help="OCR para PDFs só-imagem")
+    sy.add_argument("--embed", action="store_true", help="juntar logo a camada de vetores")
+    add_embed_opts(sy)
+    sy.set_defaults(func=cmd_sync)
 
     args = p.parse_args(argv)
     return args.func(args)

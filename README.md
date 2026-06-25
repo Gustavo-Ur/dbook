@@ -54,6 +54,18 @@ dbook/
 
 ## Início rápido
 
+**A forma mais simples** — largas ficheiros numa pasta e descodificas tudo de uma vez:
+
+```sh
+python -m dbook sync     # cria entrada/, descodifica tudo para biblioteca/, salta o já feito
+```
+
+Pões os teus PDFs/textos em `entrada/`, corres `dbook sync`, e os `.dbook` aparecem
+em `biblioteca/`. Volta a correr quando acrescentares ficheiros — só toca no que é
+novo ou mudou (deteção por hash).
+
+Ou ficheiro a ficheiro:
+
 ```sh
 python -m dbook encode "livro.pdf" --embed --model nomic-embed-text   # livro → .dbook
 python -m dbook info   "livro.dbook"                                   # ver o manifesto
