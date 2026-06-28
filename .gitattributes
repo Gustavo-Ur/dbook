@@ -1,0 +1,9 @@
+# Integridade: a prova de origem (prova_de_origem/SHA256SUMS) depende dos bytes
+# EXATOS dos artefactos. Por isso todo o texto é normalizado e sai sempre com
+# fins-de-linha LF, em qualquer sistema operativo — para o SHA256SUMS bater com
+# o carimbo SHA256SUMS.ots mesmo em máquinas Windows (core.autocrlf=true).
+* text=auto eol=lf
+
+# Binários: nunca converter.
+*.npz binary
+*.ots binary
