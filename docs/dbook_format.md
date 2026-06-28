@@ -8,6 +8,11 @@
 > o chunking é por **frases** (`method: "sentences"`, não "words"), e a camada de
 > vetores guarda também `preprocess` (ex.: `nfkd-deaccent`) para quem a usar
 > embeber as perguntas da mesma forma.
+>
+> **A especificação NORMATIVA é [`spec_dbook_v1.md`](spec_dbook_v1.md)** — o
+> contrato a que um leitor/escritor conforme obedece (campos, forma canónica do
+> hash, a regra de uso, a linha de neutralidade). Este documento é o *explicador*:
+> a visão e a intuição. Em caso de divergência, vale a spec.
 
 ## A visão
 
@@ -113,20 +118,27 @@ livro.dbook/                         (uma pasta ou um zip)
   "format": "dbook/1.0",
   "title": "Princípios de Eletrónica",
   "author": "Albert Malvino",
-  "isbn": "...",
   "language": "es",
+  "source": "malvino.pdf",
+  "source_sha256": "<hash do PDF/EPUB original>",
   "pages": 1124,
   "chunks": 2100,
-  "source_sha256": "<hash do PDF/EPUB original>",
-  "chunking": { "method": "words", "size": 250, "overlap": 40 },
+  "structure_sha256": "<hash da camada durável — liga os vetores a este texto>",
+  "chunking": { "method": "sentences", "size": 250, "overlap": 40 },
+  "cleaned": true,
   "vectors_available": [
     "nomic-embed-text@v1.5/768",
     "text-embedding-3@small/1536"
   ],
+  "license": null,
   "created": "2026-06-23",
-  "license": "..."
+  "tool": "dbook/decoder"
 }
 ```
+
+> Campos como `isbn` não fazem parte da v1 (podem entrar como campos extra, que um
+> leitor conforme ignora). O conjunto canónico de campos é o da
+> [spec](spec_dbook_v1.md) §3.
 
 ### 2. `structure.jsonl` — a camada durável
 

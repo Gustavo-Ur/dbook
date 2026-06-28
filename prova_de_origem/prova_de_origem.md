@@ -1,7 +1,7 @@
 # Prova de Origem — Livro Descodificado (`.dbook`)
 
 **Autor:** Gustavo de Urzêda Abreu
-**Data de publicação:** 24 de junho de 2026
+**Data de publicação:** 24 de junho de 2026 (selos #1 e #2) · 28 de junho de 2026 (selo #3)
 **Contacto:** via GitHub — github.com/Gustavo-Ur
 
 Este documento é a **prova de origem** (publicação defensiva) do formato
@@ -15,31 +15,37 @@ tarde, reclamar como invenção própria aquilo que aqui se publica.
 ## Hash raiz (selo atual)
 
 ```
-427cd6769efa36f2dee153be92fac88242d45cec932b628cef42452985bfde7f
+91e0a37f2e4c65148a002380575bb6641d72da44093a2d44d20bc94d1ea28281
 ```
 
 Esta é a impressão digital SHA-256 do ficheiro `SHA256SUMS`, que por sua vez
 contém o SHA-256 de cada artefacto. Alterar um único byte de qualquer ficheiro
 muda a sua linha em `SHA256SUMS`, e isso muda a hash raiz. Uma só linha sela tudo.
 
-### Dois selos (ambos de 24 de junho de 2026)
+### Três selos
 
-- **Selo #1 — `77b96dd0…45738a4`** — a primeira versão dos documentos, antes das
-  notas de licença CC BY 4.0. Preservado em [`selo_1_inicial/`](selo_1_inicial/)
+- **Selo #1 — `77b96dd0…45738a4`** (24 jun 2026) — a primeira versão dos documentos,
+  antes das notas de licença CC BY 4.0. Preservado em [`selo_1_inicial/`](selo_1_inicial/)
   (com o seu próprio `SHA256SUMS.ots`); continua verificável.
-- **Selo #2 — `427cd676…85bfde7f`** — a versão **canónica**, com as licenças
-  CC BY 4.0 já incluídas nos documentos. É este o selo de referência (os ficheiros
-  `SHA256SUMS` e `SHA256SUMS.ots` na raiz desta pasta).
+- **Selo #2 — `427cd676…85bfde7f`** (24 jun 2026) — a versão com as licenças CC BY 4.0
+  incluídas nos documentos. Preservado em [`selo_2_canonico/`](selo_2_canonico/); continua
+  verificável.
+- **Selo #3 — `91e0a37f…1ea28281`** (28 jun 2026) — acrescenta a especificação
+  **normativa** [`spec_dbook_v1.md`](../docs/spec_dbook_v1.md), corrige o exemplo de
+  manifest do explicador `dbook_format.md` (para bater com o código) e atualiza o selo
+  ao `cli.py` atual (que ganhou o comando `sync` depois do selo #2). É este o selo de
+  referência (os ficheiros `SHA256SUMS` e `SHA256SUMS.ots` na raiz desta pasta).
 
-O selo #1 prova que a obra já existia mais cedo nesse dia; o selo #2 sela a forma
-final. Ambos têm o mesmo autor e a mesma data.
+Cada selo prova que aquela forma exata dos artefactos existia naquela data. Todos têm o
+mesmo autor, Gustavo de Urzêda Abreu.
 
 ## Artefactos selados
 
 | Ficheiro | Papel |
 |---|---|
 | `docs/manifesto.md` | A visão — a bandeira |
-| `docs/dbook_format.md` | A especificação técnica do formato |
+| `docs/dbook_format.md` | O explicador do formato (visão + intuição) |
+| `docs/spec_dbook_v1.md` | A especificação **normativa** `.dbook` v1 |
 | `docs/constituicao.md` | A carta fundadora (livre / guardado / juramentos) |
 | `dbook/__init__.py` … `__main__.py` | O descodificador de referência (6 ficheiros) |
 | `dbook/LICENSE` | Apache License 2.0 (inclui a cláusula de patentes) |
@@ -62,12 +68,13 @@ exatamente os que foram selados nesta data.
 
 ## Carimbo temporal por terceiro — FEITO (OpenTimestamps)
 
-A hash raiz foi ancorada via **OpenTimestamps** em **24 de junho de 2026**, sem
-revelar qualquer conteúdo (só a hash viajou). A prova está em
-[`SHA256SUMS.ots`](SHA256SUMS.ots).
+A hash raiz do selo #3 foi ancorada via **OpenTimestamps** em **28 de junho de 2026**,
+sem revelar qualquer conteúdo (só a hash viajou). A prova está em
+[`SHA256SUMS.ots`](SHA256SUMS.ots). (O `.ots` do selo #2 está preservado em
+[`selo_2_canonico/`](selo_2_canonico/).)
 
-Três servidores de calendário independentes comprometeram-se a gravar a hash na
-blockchain do Bitcoin:
+Os três servidores de calendário independentes comprometeram-se (3/3) a gravar a hash
+na blockchain do Bitcoin:
 
 - `alice.btc.calendar.opentimestamps.org`
 - `bob.btc.calendar.opentimestamps.org`
